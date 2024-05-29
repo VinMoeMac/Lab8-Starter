@@ -2,8 +2,8 @@
     "name": "Lab8-Starter",
     "short_name": "VincentMcCloskey",
     "description": "Recipe Holder",
-    "start_url": "../index.html",
-    "display": "standalone",
+    "start_url": "https://vinmoemac.github.io/Lab8-Starter/",
+    "display": "minimal-ui",
     "background_color": "black",
     "theme_color": "white",
     "icons": [
