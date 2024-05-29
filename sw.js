@@ -45,7 +45,7 @@ self.addEventListener('fetch', function (event) {
   event.respondWith(
     caches.open(CACHE_NAME).then(function(cache) {
       return cache.match(event.request).then((response) => {
-        return response || fetch(event.request.url, {
+        return response || fetch(event.request, {
             mode: "no-cors"
         }).then((fetchResponse) => {
             cache.put(event.request, fetchResponse.clone());
