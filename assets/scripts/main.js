@@ -47,17 +47,19 @@ function initializeServiceWorker() {
   // B1. TODO - Check if 'serviceWorker' is supported in the current browser
   if ('serviceWorker' in navigator) {
   // B2. TODO - Listen for the 'load' event on the window object.
-    window.addEventListener('load', function() {
+    window.addEventListener('load', async() => {
       // Register './sw.js' as a service worker
-      navigator.serviceWorker.register('./sw.js')
-        .then(function(registration) {
-          // Once the service worker has been successfully registered, console log that it was successful
-          console.log('Service Worker registration successful with scope: ', registration.scope);
-        })
-        .catch(function(error) {
-          // In the event that the service worker registration fails, console log that it has failed
-          console.log('Service Worker registration failed: ', error);
+      try {
+        const registration = await navigator.serviceWorker.register("/sw.js", {
+            scope: "/",
         });
+
+        if (registration.active) {
+            console.log("ServiceWorker registered");
+        }
+    } catch (error) {
+        console.error(`Registration failed with ${error}`);
+    }
     });
   }
   else{

@@ -44,15 +44,14 @@ self.addEventListener('fetch', function (event) {
   //            above (CACHE_NAME)
   event.respondWith(
     caches.open(CACHE_NAME).then(function(cache) {
-      return cache.match(event.request).then(function(response) {
-        if (response) {
-          return response;
-        }
-        return fetch(event.request).then(function(networkResponse) {
-          cache.put(event.request, networkResponse.clone());
-          return networkResponse;
+      return cache.match(event.request).then((response) => {
+        return response || fetch(event.request.url, {
+            mode: "no-cors"
+        }).then((fetchResponse) => {
+            cache.put(event.request, fetchResponse.clone());
+            return fetchResponse;
         });
-      });
+    });
     })
   );
   // B8. TODO - If the request is in the cache, return with the cached version.
